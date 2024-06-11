@@ -1,60 +1,23 @@
 <?php
 
-class UsersManager {
+class UsersManager  extends PdoManager {
 
     public function getStudents() {
-        $students = array (
-            [
-                'id' => 1,
-                'prenom' => "Agustin",
-                'urlphoto' => "public/img/apprenants/agustin.png",
-            ],
-            [
-                'id' => 2,
-                'prenom' => "Annaëlle",
-                'urlphoto' => "public/img/apprenants/annaelle.png",
-            ],
-            [
-                'id' => 3,
-                'prenom' => "Barnabé",
-                'urlphoto' => "public/img/apprenants/Barnabe.png",
-            ],
-            [
-                'id' => 4,
-                'prenom' => "Christophe",
-                'urlphoto' => "public/img/apprenants/christophe.png",
-            ],
-            [
-                'id' => 5,
-                'prenom' => "Cyril",
-                'urlphoto' => "public/img/apprenants/cyril.png",
-            ],
-            [
-                'id' => 6,
-                'prenom' => "Kilian",
-                'urlphoto' => "public/img/apprenants/kilian.png",
-            ],
-            [
-                'id' => 7,
-                'prenom' => "Martin",
-                'urlphoto' => "public/img/apprenants/martin.png",
-            ],
-            [
-                'id' => 8,
-                'prenom' => "Noé",
-                'urlphoto' => "public/img/apprenants/noe.png",
-            ],
-            [
-                'id' => 9,
-                'prenom' => "Stéphane",
-                'urlphoto' => "public/img/apprenants/stephane.png",
-            ],
-            [
-                'id' => 10,
-                'prenom' => "Vincent",
-                'urlphoto' => "public/img/apprenants/vincent.png",
-            ],
-        );
+
+        $db = $this->connexion();
+        try {
+
+            $sql = "SELECT * FROM candidat  C
+                    INNER JOIN role R ON C.id_role = R.id_role
+                    where R.nom_role = 'apprenant';";
+            //echo $sql;
+            $request = $db->query($sql);
+        } catch (Exception $e) {
+            throw new Exception('Erreur lors de la récupération des avis.');
+        }
+
+        $students = $request->fetchAll();        
+        var_dump($students);
 
         return $students;
     }

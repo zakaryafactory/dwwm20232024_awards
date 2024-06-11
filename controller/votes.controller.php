@@ -14,13 +14,14 @@ class VotesController {
 
         // récupération des catégories de votes
         $categoriesManager = new CategoriesManager();
-        $categoriesStudents = $categoriesManager->getListOfCategories("apprenants");
-        $categoriesTrainers = $categoriesManager->getListOfCategories("formateurs");
+        $categoriesStudents = $categoriesManager->getListOfCategories("apprenant");
+        $categoriesTrainers = $categoriesManager->getListOfCategories("formateur");
+        var_dump($categoriesStudents);
 
         // récupération des nominés
         $usersManager = new UsersManager();
-        $students = $usersManager->getStudents();
-        $trainers = $usersManager->getTrainers();
+        $candidats = $usersManager->getStudents();
+        $formateurs = $usersManager->getTrainers();
 
         require('view/votes.view.php');
     }
