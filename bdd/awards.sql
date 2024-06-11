@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 10 juin 2024 à 16:52
--- Version du serveur : 10.4.28-MariaDB
--- Version de PHP : 8.2.4
+-- Généré le : mar. 11 juin 2024 à 17:33
+-- Version du serveur : 10.4.32-MariaDB
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,21 +40,21 @@ CREATE TABLE `candidat` (
 --
 
 INSERT INTO `candidat` (`id_candidat`, `id_role`, `nom`, `prenom`, `url_avatar`) VALUES
-(43, 1, 'Maurice', 'Barnabé', 'public\\image\\Apprenants\\barnabe.png'),
-(44, 1, 'Marchand', 'Christophe', 'public\\image\\Apprenants\\christophe.png'),
-(45, 1, 'Sochard', 'Kilian', 'public\\image\\Apprenants\\kilian.png'),
-(46, 1, 'Chedaille', 'Martin', 'public\\image\\Apprenants\\martin.png'),
-(47, 1, 'Rouly', 'Annaelle', 'public\\image\\Apprenants\\annaelle.png'),
-(48, 1, 'Delmas', 'Noe', 'public\\image\\Apprenants\\noe.png'),
-(49, 1, 'Vincent', 'Stephane', 'public\\image\\Apprenants\\stephane.png'),
-(50, 1, 'Puyestier', 'Vincent', 'public\\image\\Apprenants\\vincent.png'),
-(51, 1, 'Benoist', 'Cyril', 'public\\image\\Apprenants\\cyril.png'),
-(52, 1, 'Zavala', 'Agustin', 'public\\image\\Apprenants\\agustin.png'),
-(53, 2, 'Leydier', 'Christophe', 'public\\image\\Formateurs\\christophe.png'),
-(54, 2, 'Turquois', 'Laetitia', 'public\\image\\Formateurs\\laetitia.png'),
-(55, 2, 'Trancard', 'Tony', 'public\\image\\Formateurs\\tony.png'),
-(56, 2, 'Tetart', 'Cedric', 'public\\image\\Formateurs\\cedric.png'),
-(57, 2, 'Fontaine', 'Luc', 'public\\image\\Formateurs\\luc.png');
+(1, 1, 'Maurice', 'Barnabé', 'public\\image\\Apprenants\\barnabe.png'),
+(2, 1, 'Marchand', 'Christophe', 'public\\image\\Apprenants\\christophe.png'),
+(3, 1, 'Sochard', 'Kilian', 'public\\image\\Apprenants\\kilian.png'),
+(4, 1, 'Chedaille', 'Martin', 'public\\image\\Apprenants\\martin.png'),
+(5, 1, 'Rouly', 'Annaelle', 'public\\image\\Apprenants\\annaelle.png'),
+(6, 1, 'Delmas', 'Noe', 'public\\image\\Apprenants\\noe.png'),
+(7, 1, 'Vincent', 'Stephane', 'public\\image\\Apprenants\\stephane.png'),
+(8, 1, 'Puyestier', 'Vincent', 'public\\image\\Apprenants\\vincent.png'),
+(9, 1, 'Benoist', 'Cyril', 'public\\image\\Apprenants\\cyril.png'),
+(10, 1, 'Zavala', 'Agustin', 'public\\image\\Apprenants\\agustin.png'),
+(21, 2, 'Leydier', 'Christophe', 'public\\image\\Formateurs\\christophe.png'),
+(22, 2, 'Turquois', 'Laetitia', 'public\\image\\Formateurs\\laetitia.png'),
+(23, 2, 'Trancard', 'Tony', 'public\\image\\Formateurs\\tony.png'),
+(24, 2, 'Tetart', 'Cedric', 'public\\image\\Formateurs\\cedric.png'),
+(25, 2, 'Fontaine', 'Luc', 'public\\image\\Formateurs\\luc.png');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE `categorie` (
 --
 
 INSERT INTO `categorie` (`id_categorie`, `id_role`, `nom_categorie`, `description_categorie`, `url_smiley`) VALUES
-(1, 1, 'Le radieux', 'Prix destiné à l\'élevé qui éblouit en passant', 'public\\image\\smiley\\radieux.png'),
+(1, 1, '😀 Le radieux', 'Prix destiné à l\'élevé qui éblouit en passant', 'public\\image\\smiley\\radieux.png'),
 (3, 1, 'L\'ami de tous', 'Prix destiné à élève le plus social', 'public\\image\\smiley\\ami.png'),
 (4, 1, 'Le fêtard', 'Prix destiné à l\'élève le plus festif', 'public\\image\\smiley\\fetard.png'),
 (5, 1, 'Le titan du travail', 'Le prix destiné à l\'élève le plus bosseur et sérieux', 'public\\image\\smiley\\titan.png'),
@@ -114,6 +114,7 @@ INSERT INTO `role` (`id_role`, `nom_role`) VALUES
 
 CREATE TABLE `vote` (
   `email` varchar(150) NOT NULL,
+  `ip` varchar(255) NOT NULL,
   `id_categorie` int(11) NOT NULL,
   `id_candidat` int(11) NOT NULL,
   `date_heure` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -148,8 +149,7 @@ ALTER TABLE `role`
 -- Index pour la table `vote`
 --
 ALTER TABLE `vote`
-  ADD PRIMARY KEY (`email`,`id_categorie`,`id_candidat`),
-  ADD KEY `email` (`id_categorie`,`id_candidat`),
+  ADD PRIMARY KEY (`email`,`id_categorie`) USING BTREE,
   ADD KEY `fk_id_candidat` (`id_candidat`),
   ADD KEY `id_categorie` (`id_categorie`,`id_candidat`);
 
@@ -161,7 +161,7 @@ ALTER TABLE `vote`
 -- AUTO_INCREMENT pour la table `candidat`
 --
 ALTER TABLE `candidat`
-  MODIFY `id_candidat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id_candidat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=443;
 
 --
 -- AUTO_INCREMENT pour la table `categorie`
