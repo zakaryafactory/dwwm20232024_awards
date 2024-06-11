@@ -8,11 +8,8 @@ try {
 
     switch( $page ) {
         case 'vote':
-
-            echo '<pre>';
-            var_dump($_POST);
-            echo '</pre>';
-
+            $votes = new VotesController();
+            $votes->validVoteForm();
             break;
         default:
             $votes = new VotesController();

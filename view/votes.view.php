@@ -7,7 +7,7 @@ ob_start();
     <h2>Votez pour les apprenants</h2>
 
     <?php
-        $users = $students;
+        $nomines = $candidats;
         foreach($categoriesStudents as $categorie) {
             require('view/parts/categoryVote.view.php');
         }
@@ -15,15 +15,19 @@ ob_start();
 
     <h2>Votez pour les formateurs</h2>
     <?php
-        $users = $trainers;
+        $nomines = $formateurs;
         foreach($categoriesTrainers as $categorie) {
             require('view/parts/categoryVote.view.php');
         }
     ?>
+    <label for="email">Votre email *</label>
+
+    <input name="email" size="30" type="email" required>
 
     <div class="action">
         <button type="submit"class="button">Voter !</button>
     </div>
+</form>
 
     <?php
 

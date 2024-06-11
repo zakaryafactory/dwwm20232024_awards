@@ -1,17 +1,17 @@
 <section class="cards categorie categorie<?= $categorie['id_categorie'] ?>">
     <h2 class="titleCategorie">
-    <img src="<?= $categorie['url_smiley'] ?>">  
+    <img class="titleImage" src="<?= $categorie['url_smiley'] ?>">  
     <?= $categorie['nom_categorie'] ?></h2>
     <p class="libelleCategorie"><?= $categorie['description_categorie'] ?></p>
 
     <?php
-        foreach ($candidats as $candidat) {
+        foreach ($nomines as $nomine) {
     ?>
             <div class="card">
                 <label>
-                    <img src="<?php echo $candidat['url_avatar'];?>"/>
-                    <input type="radio" name="categorie<?= $categorie['id_categorie'] ?>" value="<?= $candidat['id_candidat'] ?>" />
-                    <?php echo $candidat['prenom'] ;?>
+                    <img src="<?php echo $nomine['url_avatar'];?>"/>
+                    <input type="radio" name="categorie-<?= $categorie['id_categorie'] ?>" value="<?= $nomine['id_candidat'] ?>" />
+                    <?php echo $nomine['prenom'] ;?>
                 </label>
             </div>
     <?php
