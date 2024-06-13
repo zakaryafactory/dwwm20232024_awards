@@ -57,19 +57,61 @@ class VotesManager  extends PdoManager {
             return $emailvalid;
     }
 
-    public function getVotesByCategory($id_category) {
+    public function getWinnersByCategory($id_category) {
+        return $this->getVotesByCategory($id_category, 3);
+    }
+
+    public function getAllVotants() {
 
         $db = $this->connexion();
         try {
 
-            $sql = "SELECT Cat.nom_categorie, C.prenom, count(V.date_heure) as NBVOIX
-                    FROM `vote` V 
-                    INNER JOIN `candidat` C ON V.`id_candidat`=C.`id_candidat`
-                    INNER JOIN `categorie` Cat ON V.`id_categorie`=Cat.`id_categorie`
-                    WHERE Cat.id_categorie = $id_category andV.statut=1
-                    GROUP BY Cat.nom_categorie, C.prenom
-                    ORDER BY Cat.nom_categorie, count(V.date_heure);";
-            //echo $sql;
+            $sql = "SELECT * FROM vote GROUP BY email;";
+            $request = $db->query($sql);
+
+
+        } catch (Exception $e) {
+            throw new Exception('Erreur lors de la récupération des votes.');
+        }
+
+        $results = $request->fetchAll();
+        //var_dump($students);
+        return $results;
+
+    }
+
+    public function getAllVotes() {
+
+        $db = $this->connexion();
+        try {
+
+            $sql = "SELECT * FROM vote INNER JOIN categorie ON categorie.id_categorie = vote.id_categorie INNER JOIN candidat ON candidat.id_candidat = vote.id_candidat ORDER BY date_heure, categorie.id_categorie;";
+            $request = $db->query($sql);
+
+
+        } catch (Exception $e) {
+            throw new Exception('Erreur lors de la récupération des votes.');
+        }
+
+        $results = $request->fetchAll();
+        //var_dump($students);
+        return $results;
+
+    }
+
+    public function getVotesByCategory($id_category, $limit = null) {
+
+        $db = $this->connexion();
+        try {
+
+            $sql = "SELECT C.prenom, count(V.date_heure) as NBVOIX FROM `vote` V INNER JOIN `candidat` C ON V.`id_candidat`=C.`id_candidat` INNER JOIN `categorie` Cat ON V.`id_categorie`=Cat.`id_categorie` WHERE Cat.id_categorie = $id_category and V.statut=1 GROUP BY Cat.nom_categorie, C.prenom ORDER BY Cat.nom_categorie, count(V.date_heure) DESC";
+
+            if($limit) {
+                $sql .= ' LIMIT ' . intval($limit) . ' ';
+            }
+
+            $sql .= ';';
+
             $request = $db->query($sql);
         } catch (Exception $e) {
             throw new Exception('Erreur lors de la récupération des avis.');
@@ -78,6 +120,21 @@ class VotesManager  extends PdoManager {
         $trainers = $request->fetchAll();        
         //var_dump($students);
         return $trainers;
+    }
+
+    public function toggleStatut( $statut, $email ) {
+        $db = $this->connexion();
+        try {
+
+            $sql = "UPDATE vote SET statut = ? WHERE email = ?";
+
+            $stmt = $db->prepare( $sql );
+            $stmt->execute([$statut, $email]);
+
+        } catch (Exception $e) {
+            throw new Exception('Erreur lors de la récupération des avis.');
+        }
+
     }
 
 }

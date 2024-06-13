@@ -92,6 +92,32 @@ form,
     width: 250px;
  }
 
+ table#votes {
+     width: 100%;
+ }
+
+table#votes tr:nth-child(even) {
+    background: lightgrey;
+}
+
+ table#votes td {
+     padding: 5px 5px;
+ }
+
+ .downloadButtonWrapper {
+     text-align: center;
+     margin: 1.5em
+ }
+ .downloadButtonWrapper a {
+     display: inline-block;
+     background-color: aqua;
+     border-radius: 15px;
+     color: black;
+     padding: .5em 2em;
+ }
+ .downloadButtonWrapper a:hover {
+     background-color: aquamarine;
+ }
 
  @media (max-width: 1023px) {
     /* … */

@@ -16,7 +16,7 @@ class PdoManager {
      */
     protected function connexion() {
         try {
-            $db = new PDO('mysql:host=localhost:3306;dbname=awards;charset=utf8', 'awards_user', '5mMCYWS(Q*c-YnBa');
+            $db = new PDO('mysql:host=localhost:33061;dbname=awards;charset=utf8', 'root', '');
             return $db;
         }
         catch(Exception $e) {
