@@ -16,7 +16,13 @@ class PdoManager {
      */
     protected function connexion() {
         try {
-            $db = new PDO('mysql:host=localhost:33061;dbname=awards;charset=utf8', 'root', '');
+            $host = $_SERVER['HTTP_HOST'];
+            if ($host == 'awards.digitalyz.fr') {
+                $db = new PDO('mysql:host=localhost:3306;dbname=awards;charset=utf8', 'awards', 'iiL478@_jd4812#_');
+            } else {
+                $db = new PDO('mysql:host=localhost:33061;dbname=awards;charset=utf8', 'root', '');
+            }
+
             return $db;
         }
         catch(Exception $e) {
