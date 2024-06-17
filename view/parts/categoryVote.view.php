@@ -10,7 +10,7 @@
             <div class="card">
                 <label>
                     <img src="<?php echo $nomine['url_avatar'];?>"/>
-                    <input type="radio" name="categorie-<?= $categorie['id_categorie'] ?>" value="<?= $nomine['id_candidat'] ?>" />
+                    <input required type="radio" name="categorie-<?= $categorie['id_categorie'] ?>" value="<?= $nomine['id_candidat'] ?>" />
                     <?php echo $nomine['prenom'] ;?>
                 </label>
             </div>
