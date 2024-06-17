@@ -1,4 +1,6 @@
 <?php
+//On démarre une nouvelle session
+session_start();
 
 include_once "controller/votes.controller.php";
 
@@ -6,6 +8,10 @@ try {
 
     $page = isset( $_GET['page'] ) ? $_GET['page'] : '';
     $votes = new VotesController();
+
+    // Check Token
+    $token = isset( $_GET['token'] ) ? $_GET['token'] : null;
+    $grantedUser = $votes->checkGrantedUser($token);
 
     switch( $page ) {
         case 'printResults':
@@ -23,7 +29,7 @@ try {
 
             break;
         case 'admin':
-            if( !isset($_GET['token']) || $_GET['token'] !== '11Py4ao5ffjkl8D_dp45i33') {
+            if( !$grantedUser ) {
                 throw new Exception('Tu n\'a pas le droit d\'accéder à cette page.');
             }
             $votes->adminListVotes();
@@ -32,7 +38,7 @@ try {
             $votes->validVoteForm();
             break;
         case 'results':
-            if( !isset($_GET['token']) || $_GET['token'] !== '11Py4ao5ffjkl8D_dp45i33') {
+            if( !$grantedUser ) {
                 throw new Exception('Tu n\'a pas le droit d\'accéder à cette page.');
             }
             $votes->results();

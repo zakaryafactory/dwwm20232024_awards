@@ -115,5 +115,21 @@ class VotesController {
 
     }
 
+    public function checkGrantedUser( $token ) {
+
+        if( isset($_SESSION['token']) && $_SESSION['token'] == '11Py4ao5ffjkl8D_dp45i33' ) {
+            return true;
+        }
+
+        if( !isset($token) || $token !== '11Py4ao5ffjkl8D_dp45i33' ) {
+            throw new Exception('Tu n\'a pas le droit d\'accéder à cette page.');
+        } else {
+            $_SESSION['token'] = $token;
+            $_SESSION['grantedUser'] = true;
+            return true;
+        }
+
+    }
+
 
 }
