@@ -122,7 +122,7 @@ class VotesController {
         }
 
         if( !isset($token) || $token !== '11Py4ao5ffjkl8D_dp45i33' ) {
-            throw new Exception('Tu n\'a pas le droit d\'accéder à cette page.');
+            return false;
         } else {
             $_SESSION['token'] = $token;
             $_SESSION['grantedUser'] = true;
