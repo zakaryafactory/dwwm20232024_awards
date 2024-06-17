@@ -38,7 +38,10 @@ ob_start();
         </tbody>
     </table>
 
-    <div class="downloadButtonWrapper"><a href="index.php?page=downloadResults">Télécharger le fichier JSON de tous les votes</a></div>
+    <div class="downloadButtonWrapper">
+        <a href="index.php?page=downloadResults">Télécharger le fichier JSON de tous les votes</a>&nbsp;
+        <a href="index.php?page=printResults">Afficher le fichier JSON de tous les votes</a>
+    </div>
 
 <?php
 

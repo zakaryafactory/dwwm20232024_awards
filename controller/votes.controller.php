@@ -103,5 +103,17 @@ class VotesController {
 
     }
 
+    public function printResultsJson() {
+
+        $votesManager = new VotesManager();
+        $allVotes = $votesManager->getAllVotes();
+        $data = json_encode($allVotes);
+
+        // En-têtes pour l'affichage dans le navigateur
+        header('Content-Type: application/json');
+        echo $data;
+
+    }
+
 
 }

@@ -8,6 +8,9 @@ try {
     $votes = new VotesController();
 
     switch( $page ) {
+        case 'printResults':
+            $votes->printResultsJson();
+            break;
         case 'downloadResults':
             $votes->downloadResultsJson();
             break;
