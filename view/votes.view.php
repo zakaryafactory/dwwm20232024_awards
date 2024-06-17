@@ -20,9 +20,10 @@ ob_start();
             require('view/parts/categoryVote.view.php');
         }
     ?>
-    <label for="email">Votre email *</label>
 
-    <input name="email" size="30" type="email" required>
+    <div class="email_wrapper">
+        <label for="email">Votre email *</label>
+        <input id="email" name="email" size="30" type="email" required></div>
 
     <div class="action">
         <button type="submit"class="button">Voter !</button>
